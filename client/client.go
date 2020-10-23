@@ -1,13 +1,16 @@
 package main
 
 import (
+	"bufio"
 	"flag"
-	"net"
 	"fmt"
+	"net"
 )
 
 func read(conn *net.Conn) {
 	//TODO In a continuous loop, read a message from the server and display it.
+
+	//might not work
 	reader := bufio.NewReader(*conn)
 	msg, _ := reader.ReadString('\n')
 	fmt.Print(msg)
@@ -15,6 +18,7 @@ func read(conn *net.Conn) {
 
 func write(conn *net.Conn) {
 	//TODO Continually get input from the user and send messages to the server.
+
 }
 
 func main() {

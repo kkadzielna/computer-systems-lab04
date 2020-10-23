@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"flag"
 	"net"
-	"fmt"
 )
 
 type Message struct {
@@ -15,12 +13,22 @@ type Message struct {
 func handleError(err error) {
 	// TODO: all
 	// Deal with an error event.
+
+	//might not be enough
+	if err != nil {
+		panic(err)
+	}
 }
 
 func acceptConns(ln net.Listener, conns chan net.Conn) {
 	// TODO: all
 	// Continuously accept a network connection from the Listener
 	// and add it to the channel for handling connections.
+	for {
+		conn, _ := ln.Accept()
+		//go handleConnection(&conn)
+		conns <- conn
+	}
 }
 
 func handleClient(client net.Conn, clientid int, msgs chan Message) {
@@ -38,7 +46,7 @@ func main() {
 	flag.Parse()
 
 	//TODO Create a Listener for TCP connections on the port given above.
-
+	ln, _ := net.Listen("tcp", &portPtr)
 	//Create a channel for connections
 	conns := make(chan net.Conn)
 	//Create a channel for messages
